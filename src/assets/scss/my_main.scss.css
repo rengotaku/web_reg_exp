@@ -1,0 +1,59 @@
+/**
+ * オリジナルのCSS
+ */
+
+@import 'lib/toastr';
+@import 'lib/animate';
+@import 'lib/bootstrap';
+@import 'lib/flexslider';
+@import 'lib/icomoon';
+@import 'lib/magnific-popup';
+@import 'lib/style';
+
+@import 'lib/diff2html.min';
+
+/* サイズ */
+/*$baseTitleSize: 0.8em;*/
+
+/* 色 */
+/*$baseFontColor: #262626;*/
+/*$baseFontColor: #003569;
+$baseBgColor: linear-gradient(-135deg, #E4A972, #9941D8);
+$baseBorderColor: #efefef;
+*/
+/* Main */
+
+#fh5co-contact {
+  padding: 1em 0;
+}
+
+/* diffの微調整 */
+#app {
+  .d2h-wrapper .d2h-file-wrapper .d2h-files-diff .d2h-file-side-diff {
+    margin-right: -10px;
+  }
+
+  .d2h-diff-tbody {
+    .d2h-code-line-prefix.plus:before {
+      content: "+";
+    }
+    .d2h-code-line-prefix.minus:before {
+      content: "-";
+    }
+    .d2h-code-line-prefix.space:before {
+      content: " ";
+    }
+  }
+}
+
+/* minimap */
+#map {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 3em;
+    height: 100%;
+    z-index: 100;
+/*    padding-top: 4em;
+    padding-bottom: 3em;*/
+}

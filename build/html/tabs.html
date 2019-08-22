@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>DIFF | ビューティーディフ</title>
+    <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
+<meta name="keywords" content="diff,webツール" />
+<meta name="author" content="Ryuji" />
+
+<link rel="icon" type="image/png" href="../images/favicon.png">
+<link rel="shortcut icon" type="image/png" href="../images/favicon.png">
+<link rel="stylesheet" href="../assets/css/main.css" />
+
+  <!--
+  //////////////////////////////////////////////////////
+
+  FREE HTML5 TEMPLATE
+  DESIGNED & DEVELOPED by FreeHTML5.co
+
+  Website:    http://freehtml5.co/
+  Email:      info@freehtml5.co
+  Twitter:    http://twitter.com/fh5co
+  Facebook:     https://www.facebook.com/fh5co
+
+  //////////////////////////////////////////////////////
+   -->
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">  -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+
+  <div class="fh5co-loader"></div>
+
+  <div id="page">
+<!-- Header -->
+  <nav class="fh5co-nav" role="navigation">
+  <div class="top-menu">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-3">
+          <div id="fh5co-logo"><a href="https://www.bdiff.v41.me/index.html">BEAUTY DIFF<span>.</span></a></div>
+        </div>
+        <div class="col-xs-9 text-right menu-1">
+          <ul>
+            <li><a href="index.html">DIFF</a></li>
+            <li><a href="about.html">About</a></li>
+<!-- 
+            <li class="has-dropdown">
+              <a href="blog.html">Blog</a>
+              <ul class="dropdown">
+                <li><a href="#">Web Design</a></li>
+                <li><a href="#">eCommerce</a></li>
+                <li><a href="#">Branding</a></li>
+                <li><a href="#">API</a></li>
+              </ul>
+            </li>
+ -->
+            <!-- <li class="btn-cta"><a href="#"><span>Login</span></a></li> -->
+          </ul>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</nav>
+
+<!-- Tab -->
+  <ul id="tabs" class="nav nav-tabs">
+<!-- 
+    <li class="nav-item">
+      <a href="#tab1" class="nav-link navbar-default active" data-toggle="tab">Tab1</a>
+    </li>
+ -->
+    <li class="nav-item">
+      <a href="#new" id="tab-add" class="nav-link navbar-default" data-toggle="tab"><i class="icon-plus"></i></a>
+    </li>
+  </ul>
+  <!--タブの中身-->
+  <div id="tab-add-content" class="tab-content">
+<!--
+    <div id="tab1" class="tab-pane active">
+    </div>
+ -->
+  </div>
+
+  <div class="fh5co-contact" id="origin" style="display: none;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" rows="10" id="txt1" name="txt1" placeholder="テキストをはりつけて！"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" rows="10" id="txt2" name="txt2" placeholder="テキストをはりつけて！"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group row">
+            <label for="outputFormat" class="col-sm-2">表示方式</label>
+            <div class="col-sm-4">
+              <select class="form-control" id="diff-url-options-output-format" name="outputFormat">
+                <option value="line-by-line">Line by Line</option>
+                <option value="side-by-side" selected>Side by Side</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <a href="#app">
+              <button type="button" id="btn-exec" class="btn btn-primary">比較する</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div>
+    <div id="app" name="app">
+    </div>
+  </div>
+
+<!-- Footer -->
+  <footer id="fh5co-footer" role="contentinfo">
+  <div class="container">
+    <div class="row copyright">
+      <div class="col-md-12 text-center">
+        <p>
+          <small class="block">&copy; BEAUTY DIFF. All Rights Reserved.</small> 
+          <small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a></small>
+        </p>
+        <p>
+          <ul class="fh5co-social-icons">
+            <li><a href="https://github.com/kanagawa41/"><i class="icon-github"></i></a></li>
+<!-- 
+            <li><a href="#"><i class="icon-facebook"></i></a></li>
+            <li><a href="#"><i class="icon-linkedin"></i></a></li>
+            <li><a href="#"><i class="icon-dribbble"></i></a></li>
+ -->
+          </ul>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+  <div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
+  </div>
+
+<!-- Scripts -->
+  <script src="../assets/js/main.js"></script>
+
+  <script>
+
+  var tabCount = 1;
+  document.addEventListener('DOMContentLoaded', function() {
+    // 要素のディープコピー
+    var originDiffer = document.getElementById('origin').cloneNode(true);
+    originDiffer = $(originDiffer).css('display', 'block');
+
+    // var html = '';
+    // html += '<li class="nav-item">';
+    // html += '  <a href="#tab"' + tabCount + ' class="nav-link navbar-default active" data-toggle="tab">Tab' + tabCount + '</a>';
+    // html += '</li>';
+
+    // // タブの追加
+    // $('#tabs').prependTo(html);
+
+    // html = '';
+    // html += '<div id="tab1" class="tab-pane active">';
+    // html += '  <!--Tab1の内容-->';
+    // html += '</div>';
+
+    // $('#tab-contents').append(html);
+    // $('#tab' + tabCount).append(originDiffer);
+
+
+
+    $('#tabs').on('click', ' #tab-add', function(e) { //< タブ追加ボタンクリック
+      var nextTab = $('#tabs li').length;
+
+      var html = '';
+
+      html += '<li class="nav-item">';
+      html += '  <a href="#tab"' + nextTab + ' class="nav-link navbar-default" data-toggle="tab">Tab' + nextTab + '</a>';
+      html += '</li>';
+
+      $('#tabs').prepend(html);
+
+      html = '';
+      html += '<div id="tab' + nextTab + '" class="tab-pane active">';
+      html += '</div>';
+
+      $('#tab-add-content').append(html);
+
+      var originDiffer = document.getElementById('origin').cloneNode(true);
+      originDiffer = $(originDiffer).css('display', 'block');
+      $('#tab' + nextTab).append(originDiffer);
+
+      $('#tabs li:nth-last-child(1) a').tab('show');
+    }).on('click', ' li a .close', function() { //< 閉じるボタンクリック
+      var tabLi = $(this).parents('li');
+      var tabId = tabLi.children('a').attr('href');
+      if (tabLi.hasClass('active')) {
+        if (tabLi.next().attr('id') === 'tab-add') {
+          tabLi.prev().children('a').tab('show');
+        } else {
+          tabLi.next().children('a').tab('show');
+        }
+      }
+      // タブ削除
+      tabLi.remove('li');
+      $(tabId).remove();
+    }).on('shown.bs.tab', ' a[data-toggle="tab"]', function(e) { //< タブ切り替えイベント
+      // 以前のアクティブタブの閉じるボタンを削除
+      $(e.relatedTarget).children('.close').remove();
+      if($(e.target).attr('id') == 'tab-add') { return }; // 追加ボタンは削除させない
+      // アクティブタブに閉じるボタンを付与
+      $(e.target).append(
+        '<button type="button" class="close" aria-label="Close" title="タブを閉じる" style="font-size:20px">'
+        + '<span aria-hidden="true">&#215;</span><span class="sr-only">タブを閉じる</span>'
+        + '</button>'
+      );
+    });
+
+
+
+
+    $('#btn-exec').on('click', function(){
+      const text1 = $('#txt1').val();
+      const text2 = $('#txt2').val();
+      const outputFormat = $('#diff-url-options-output-format').val();
+
+      const unifiedDiff = JsDiff.createPatch("fileName", text1, text2, "test", "test");
+
+      const diff2htmlUi = new Diff2HtmlUI({diff: unifiedDiff});
+      diff2htmlUi.draw('#app', {inputFormat: 'json', showFiles: true, matching: 'lines', outputFormat: outputFormat});
+      $('.d2h-file-list-wrapper').css('display', 'none');
+      $('.d2h-file-header').css('display', 'none');
+    });
+  });
+  </script>
+
+  </body>
+</html>

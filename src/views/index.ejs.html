@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>DIFF | <%= title.jp %></title>
+    <%- include('layout/common_head.ejs.html') -%>
+
+  <!--
+  //////////////////////////////////////////////////////
+
+  FREE HTML5 TEMPLATE
+  DESIGNED & DEVELOPED by FreeHTML5.co
+
+  Website:    http://freehtml5.co/
+  Email:      info@freehtml5.co
+  Twitter:    http://twitter.com/fh5co
+  Facebook:     https://www.facebook.com/fh5co
+
+  //////////////////////////////////////////////////////
+   -->
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">  -->
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+
+  <div class="fh5co-loader"></div>
+
+  <div id="page">
+<!-- Header -->
+  <%- include('layout/header.ejs.html') -%>
+
+  <div class="fh5co-contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" rows="10" id="txt1" name="txt1" placeholder="テキストをはりつけて！ or ファイルをドロップして！"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" rows="10" id="txt2" name="txt2" placeholder="テキストをはりつけて！ or ファイルをドロップして！"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group row">
+            <label for="optradio" class="col-sm-2 col-form-label">表示方式</label>
+            <div class="col-sm-10">
+              <label class="radio-inline"><input type="radio" name="optradio" value="side-by-side" checked>Side by Side</label>
+              <label class="radio-inline"><input type="radio" name="optradio" value="line-by-line">Line by Line</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <section style="padding-left: 15px;">
+              <label class="col-form-label" data-toggle="collapse" data-target="#options">オプション ▼</label>
+              <div id="options" class="collapse">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+
+                    <div class="form-group row">
+                      <label for="sort" class="col-sm-2 col-form-label">ソート</label>
+                      <div class="col-sm-10">
+                        <label class="radio-inline"><input type="radio" name="sort" value="none" checked>しない</label>
+                        <label class="radio-inline"><input type="radio" name="sort" value="do">する</label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="last_line" class="col-sm-2 col-form-label">最終改行の差分</label>
+                      <div class="col-sm-10">
+                        <label class="radio-inline"><input type="radio" name="last_line" value="noignore">無視しない</label>
+                        <label class="radio-inline"><input type="radio" name="last_line" value="ignore" checked>無視する</label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="minimap" class="col-sm-2 col-form-label">ミニマップの表示</label>
+                      <div class="col-sm-10">
+                        <label class="radio-inline"><input type="radio" name="minimap" value="none" checked>しない</label>
+                        <label class="radio-inline"><input type="radio" name="minimap" value="do">する</label>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="form-group row">
+            <section class="pl-1" style="padding-left: 15px;">
+              <a href="#app">
+                <button type="button" id="btn-exec" class="btn btn-primary">比較する</button>
+              </a>
+              <button type="button" id="btn-reset" class="btn btn-danger">リセット</button>
+              <a href="#" id="btn-download" class="btn btn-default">ダウンロード</a>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div>
+    <div id="app" name="app">
+
+    </div>
+  </div>
+
+<!-- Footer -->
+  <%- include('layout/footer.ejs.html') -%>
+
+  <div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
+  </div>
+
+<!-- Scripts -->
+  <%- include('layout/script.ejs.html') -%>
+
+  <script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    $("#btn-download").prop("disabled", true);
+
+    (function() {
+      var droppable = $("body");
+
+      // File API が使用できない場合は諦めます.
+      if(!window.FileReader) {
+        alert("File API がサポートされていません。");
+        return false;
+      }
+
+      // イベントをキャンセルするハンドラです.
+      var cancelEvent = function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+      }
+
+      // dragenter, dragover イベントのデフォルト処理をキャンセルします.
+      droppable.bind("dragenter", cancelEvent);
+      droppable.bind("dragover", cancelEvent);
+
+      // ドロップ時のイベントハンドラを設定します.
+      var handleDroppedFile = function(event) {
+        var fileCount = event.originalEvent.dataTransfer.files.length;
+
+        if(fileCount == 1) {
+          var file = event.originalEvent.dataTransfer.files[0];
+
+          var fileReader = new FileReader();
+          fileReader.onload = function(event) {
+            $('#txt1').val(event.target.result);
+          }
+          fileReader.readAsText(file);
+        } else if(fileCount == 2) {
+          var file1 = event.originalEvent.dataTransfer.files[0];
+          var file2 = event.originalEvent.dataTransfer.files[1];
+
+          var fileReader = new FileReader();
+
+          var targetTxt = '#txt1';
+          fileReader.onload = function(event) {
+            $(targetTxt).val(event.target.result);
+
+            // 回帰的に呼び出しているのは、１回目のreadAsTextが終わらない内に次の、readAsTextを実行するとエラーが発生するため。
+            if(targetTxt == '#txt1'){
+              targetTxt = '#txt2';
+              fileReader.readAsText(file2);
+            } else if(targetTxt == '#txt2'){
+              $('#btn-exec').click();
+            }
+          }
+
+          fileReader.readAsText(file1);
+        } else if(fileCount > 2) {
+          alert('ファイルは2個までドロップ可能です。');
+        }
+
+        // デフォルトの処理をキャンセルします.
+        cancelEvent(event);
+        return false;
+      }
+
+      // ドロップ時のイベントハンドラを設定します.
+      droppable.bind("drop", handleDroppedFile);
+    })();
+
+    $('#btn-exec').on('click', function(){
+      var text1 = $('#txt1').val().replace(/\r?\n/g, "\n");
+      var text2 = $('#txt2').val().replace(/\r?\n/g, "\n");
+      const outputFormat = $('input[name=optradio]:checked').val();
+      const sort = $('input[name=sort]:checked').val();
+      if(sort == 'do') {
+        text1 = text1.split("\n").sort().join("\n");
+        text2 = text2.split("\n").sort().join("\n");
+      }
+      const lastLineState = $('input[name=last_line]:checked').val();
+     if(lastLineState == 'ignore') {
+        text1 = text1.replace(/\s+$/, '');
+        text2 = text2.replace(/\s+$/, '');
+      }
+      const minimap = $('input[name=minimap]:checked').val();
+
+      const unifiedDiff = JsDiff.createPatch("fileName", text1, text2, "test", "test");
+
+      var actionHasDiff = function(unifiedDiff) {
+        $('#app').html('');
+
+        const diff2htmlUi = new Diff2HtmlUI({diff: unifiedDiff});
+        diff2htmlUi.draw('#app', {inputFormat: 'json', showFiles: true, matching: 'lines', outputFormat: outputFormat});
+        $('.d2h-file-list-wrapper').css('display', 'none');
+        $('.d2h-file-header').css('display', 'none');
+
+        // contextに変更
+        $('.d2h-diff-tbody .d2h-code-line-prefix').each(function(index, element){
+          if($(element).text() == '+') {
+            $(element).addClass('plus');
+          } else if($(element).text() == '-') {
+            $(element).addClass('minus');
+          } else {
+            $(element).addClass('space');
+          }
+
+          $(element).text(' ');
+        });
+
+        // ダウンロードボタンの有効化
+        $('#btn-download').removeClass('btn-default');
+        $('#btn-download').addClass('btn-primary');
+        $("#btn-download").prop("disabled", false);
+      }
+
+      // 差分の有無
+      if(unifiedDiff.indexOf('@') > -1) {
+        $(".fh5co-loader").fadeIn("slow");
+
+        actionHasDiff(unifiedDiff);
+
+        $(".fh5co-loader").fadeOut("slow");
+      } else {
+        $('#btn-download').removeClass('btn-primary');
+        $('#btn-download').addClass('btn-default');
+        $("#btn-download").prop("disabled", true);
+
+        var html = '';
+        html += '<div class="container">';
+        html += '  <div class="row">';
+        html += '    <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">';
+        html += '      <h2 style="color: #d9534f">差分はありません</h2>';
+        html += '    </div>';
+        html += '  </div>';
+        html += '</div>';
+        $('#app').html(html);
+      }
+
+      // ミニマップをリセット
+      if($('body #map').length > 0) {
+        $('body #map').remove();
+      }
+      if(minimap == 'do') {
+        $('body').append('<canvas id="map"></canvas>');
+
+        /* 画面のミニマップを作成 */
+        pagemap(document.querySelector('#map'), {
+            // document.querySelector('#app'); とすれば範囲を比較の部分だけにできるが、移動ができなくなる
+            viewport: null,
+            styles: {
+                // 'header,footer,section,article': "rgba(0,0,0,0.08)",
+                // 'h1,a': "rgba(0,0,0,0.10)",
+                // 'h2,h3,h4': "rgba(0,0,0,0.08)",
+                'td.d2h-ins': "rgba(151,242,149,1.0)",
+                'td.d2h-del': "rgba(255,182,186,1.0)",
+            },
+            back: "rgba(0,0,0,0.10)",
+            view: "rgba(0,0,0,0.05)",
+            drag: "rgba(0,0,0,0.15)",
+            interval: null
+        });
+      }
+    });
+
+    // ファイルとしてダウンロード
+    // https://ja.stackoverflow.com/questions/300/javascript%E3%81%8B%E3%82%89%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%95%E3%81%9B%E3%82%8B%E3%81%AE%E3%81%AF%E3%81%A9%E3%81%86%E3%81%97%E3%81%9F%E3%82%89%E8%89%AF%E3%81%84%E3%81%A7%E3%81%99%E3%81%8B
+    var downloadAsFile = function(fileName, content) {
+        var blob = new Blob([content]);
+        var url = window.URL || window.webkitURL;
+        var blobURL = url.createObjectURL(blob);
+
+        var a = document.createElement('a');
+        a.download = fileName;
+        a.href = blobURL;
+        a.click();
+    };
+
+    /* ダウンロード処理 */
+    $('#btn-download').on('click', function(){
+      // ボタンが無効でないか
+      if($("#btn-download").prop('disabled')) { return; }
+
+      var cloneBody = $('body').clone(true);
+      // 入力項目
+      $('#page > div.fh5co-contact', cloneBody).remove();
+      // 上へボタン
+      $('.gototop', cloneBody).remove();
+      // スクリプト部分
+      $('script', cloneBody).remove();
+      // FIXME: ナビを#pageの外に移動させる
+      // $('.fh5co-nav', cloneBody).prependTo('body', cloneBody);
+      // $('#page', cloneBody).remove();
+      $('#page', cloneBody).css('height', '10%');
+      $('#page > nav > div > div > div > div.col-xs-9.text-right.menu-1', cloneBody).css('visibility', 'hidden');
+
+      var html = '';
+      html += '<html>';
+      html += '  </head>';
+      html += '    <link rel="stylesheet" href="http://www.bdiff.v41.me/assets/css/main.css" />';
+      html += '  </head>';
+      html += '  <body>';
+      html += '    ' + $(cloneBody).html();
+      html += '  </body>';
+      html += '</html>';
+
+      downloadAsFile('diff_result.html', html);
+    });
+
+    /* リセット処理 */
+    $('#btn-reset').on('click', function(){
+      $('#txt1').val('');
+      $('#txt2').val('');
+    });
+  });
+  </script>
+
+  </body>
+</html>

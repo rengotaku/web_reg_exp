@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<head>
+  <title>DIFF</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free HTML5 Website Template by freehtml5.co">
+  <meta name="keywords" content="diff,webツール">
+  <meta name="author" content="Ryuji">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <!--
+  //////////////////////////////////////////////////////
+  
+  FREE HTML5 TEMPLATE
+  DESIGNED & DEVELOPED by FreeHTML5.co
+  
+  Website:    http://freehtml5.co/
+  Email:      info@freehtml5.co
+  Twitter:    http://twitter.com/fh5co
+  Facebook:     https://www.facebook.com/fh5co
+  
+  //////////////////////////////////////////////////////
+  -->//-
+  <!-- <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">-->
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+  <!-- FOR IE9 below-->
+  <!--if lt IE 9script(src='js/respond.min.js')
+  -->
+</head>
+<div class="fh5co-loader"></div>
+<div id="page">
+  <!-- Header-->
+  <nav class="fh5co-nav" role="navigation">
+    <div class="top-menu">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-3">
+            <div id="fh5co-logo"><a href="&lt;%= url %&gt;index.html">DIIF</a><span>.</span></div>
+          </div>
+          <div class="col-xs-9 text-right menu-1">
+            <ul>
+              <li><a href="index.html">DIFF</a></li>
+              <li><a href="about.html">About</a></li>
+              <!--
+              <li class="has-dropdown">
+              <a href="blog.html">Blog</a>
+              <ul class="dropdown">
+              <li><a href="#">Web Design</a></li>
+              <li><a href="#">eCommerce</a></li>
+              <li><a href="#">Branding</a></li>
+              <li><a href="#">API</a></li>
+              </ul>
+              </li>
+              -->
+              <!-- <li class="btn-cta"><a href="#"><span>Login</span></a></li>-->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="fh5co-contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" id="txt1" rows="10" name="txt1" placeholder="テキストをはりつけて！ or ファイルをドロップして！"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <textarea class="form-control" id="txt2" rows="10" name="txt2" placeholder="テキストをはりつけて！ or ファイルをドロップして！"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="optradio">&#x8868;&#x793A;&#x65B9;&#x5F0F;</label>
+            <div class="col-sm-10">
+              <label class="radio-inline">
+                <input type="radio" name="optradio" value="side-by-side" checked="">Side by Side
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="optradio" value="line-by-line">Line by Line
+              </label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <section style="padding-left: 15px;">
+              <label class="col-form-label" data-toggle="collapse" data-target="#options">&#x30AA;&#x30D7;&#x30B7;&#x30E7;&#x30F3; &#x25BC;</label>
+              <div class="collapse" id="options">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="sort">&#x30BD;&#x30FC;&#x30C8;</label>
+                      <div class="col-sm-10">
+                        <label class="radio-inline">
+                          <input type="radio" name="sort" value="none" checked="">&#x3057;&#x306A;&#x3044;
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="sort" value="do">&#x3059;&#x308B;
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="last_line">&#x6700;&#x7D42;&#x6539;&#x884C;&#x306E;&#x5DEE;&#x5206;</label>
+                      <div class="col-sm-10">
+                        <label class="radio-inline">
+                          <input type="radio" name="last_line" value="noignore">&#x7121;&#x8996;&#x3057;&#x306A;&#x3044;
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="last_line" value="ignore" checked="">&#x7121;&#x8996;&#x3059;&#x308B;
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-sm-2 col-form-label" for="minimap">&#x30DF;&#x30CB;&#x30DE;&#x30C3;&#x30D7;&#x306E;&#x8868;&#x793A;</label>
+                      <div class="col-sm-10">
+                        <label class="radio-inline">
+                          <input type="radio" name="minimap" value="none" checked="">&#x3057;&#x306A;&#x3044;
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="minimap" value="do">&#x3059;&#x308B;
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="form-group row">
+            <section class="pl-1" style="padding-left: 15px;"><a href="#app">
+                <button class="btn btn-primary" id="btn-exec" type="button">&#x6BD4;&#x8F03;&#x3059;&#x308B;</button></a>
+              <button class="btn btn-danger" id="btn-reset" type="button">&#x30EA;&#x30BB;&#x30C3;&#x30C8;</button><a class="btn btn-default" id="btn-download" href="#">&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;</a>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <div id="app" name="app"></div>
+</div>
+<!-- Footer-->
+<footer id="fh5co-footer" role="contentinfo">
+  <div class="container">
+    <div class="row copyright">
+      <div class="col-md-12 text-center">
+        <p><small class="block">&copy; </small><small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a></small></p>
+        <p>
+          <ul class="fh5co-social-icons">
+            <li><a href="https://github.com/kanagawa41/"><i class="icon-github"></i></a></li>
+            <!--
+            <li><a href="#"><i class="icon-facebook"></i></a></li>
+            <li><a href="#"><i class="icon-linkedin"></i></a></li>
+            <li><a href="#"><i class="icon-dribbble"></i></a></li>
+            -->
+          </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="gototop js-top"><a class="js-gotop" href="#"><i class="icon-arrow-up22"></i></a>
+  <!-- Scripts-->
+  <script src="/assets/js/main.js"></script>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  (function() {
+  });
+  });
+</script>

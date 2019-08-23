@@ -1,0 +1,92 @@
+doctype html
+head
+  title DIFF
+  include layout/common_head.pug
+
+  include layout/signature.pug
+
+  | //-
+  // <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">
+  link(href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet')
+  // FOR IE9 below
+  //if lt IE 9
+    script(src='js/respond.min.js')
+.fh5co-loader
+#page
+  // Header
+  include layout/header.pug
+
+  .fh5co-contact
+    .container
+      .row
+        .col-md-12
+          .row
+            .col-md-6
+              .form-group
+                textarea#txt1.form-control(rows='10' name='txt1' placeholder='テキストをはりつけて！ or ファイルをドロップして！')
+            .col-md-6
+              .form-group
+                textarea#txt2.form-control(rows='10' name='txt2' placeholder='テキストをはりつけて！ or ファイルをドロップして！')
+        .col-md-12
+          .form-group.row
+            label.col-sm-2.col-form-label(for='optradio') &#x8868;&#x793A;&#x65B9;&#x5F0F;
+            .col-sm-10
+              label.radio-inline
+                input(type='radio' name='optradio' value='side-by-side' checked='')
+                | Side by Side
+              label.radio-inline
+                input(type='radio' name='optradio' value='line-by-line')
+                | Line by Line
+          .form-group.row
+            section(style='padding-left: 15px;')
+              label.col-form-label(data-toggle='collapse' data-target='#options') &#x30AA;&#x30D7;&#x30B7;&#x30E7;&#x30F3; &#x25BC;
+              #options.collapse
+                .panel.panel-default
+                  .panel-body
+                    .form-group.row
+                      label.col-sm-2.col-form-label(for='sort') &#x30BD;&#x30FC;&#x30C8;
+                      .col-sm-10
+                        label.radio-inline
+                          input(type='radio' name='sort' value='none' checked='')
+                          | &#x3057;&#x306A;&#x3044;
+                        label.radio-inline
+                          input(type='radio' name='sort' value='do')
+                          | &#x3059;&#x308B;
+                    .form-group.row
+                      label.col-sm-2.col-form-label(for='last_line') &#x6700;&#x7D42;&#x6539;&#x884C;&#x306E;&#x5DEE;&#x5206;
+                      .col-sm-10
+                        label.radio-inline
+                          input(type='radio' name='last_line' value='noignore')
+                          | &#x7121;&#x8996;&#x3057;&#x306A;&#x3044;
+                        label.radio-inline
+                          input(type='radio' name='last_line' value='ignore' checked='')
+                          | &#x7121;&#x8996;&#x3059;&#x308B;
+                    .form-group.row
+                      label.col-sm-2.col-form-label(for='minimap') &#x30DF;&#x30CB;&#x30DE;&#x30C3;&#x30D7;&#x306E;&#x8868;&#x793A;
+                      .col-sm-10
+                        label.radio-inline
+                          input(type='radio' name='minimap' value='none' checked='')
+                          | &#x3057;&#x306A;&#x3044;
+                        label.radio-inline
+                          input(type='radio' name='minimap' value='do')
+                          | &#x3059;&#x308B;
+          .form-group.row
+            section.pl-1(style='padding-left: 15px;')
+              a(href='#app')
+                button#btn-exec.btn.btn-primary(type='button') &#x6BD4;&#x8F03;&#x3059;&#x308B;
+              button#btn-reset.btn.btn-danger(type='button') &#x30EA;&#x30BB;&#x30C3;&#x30C8;
+              a#btn-download.btn.btn-default(href='#') &#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;
+div
+  #app(name='app')
+// Footer
+include layout/footer.pug
+.gototop.js-top
+  a.js-gotop(href='#')
+    i.icon-arrow-up22
+  // Scripts
+  include layout/script.pug
+script.
+  document.addEventListener('DOMContentLoaded', function() {
+  (function() {
+  });
+  });

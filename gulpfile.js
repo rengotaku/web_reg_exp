@@ -89,7 +89,7 @@ gulp.task( 'font', (done) => {
 } );
 
 // CSS processing
-gulp.task('scss', gulp.series('images', 'font'), function() {
+function scss_task(done) {
   var postCssOpts = [
   assets({ loadPaths: ['images/'] }),
   autoprefixer({ browsers: ['last 2 versions', '> 2%'] }),
@@ -100,7 +100,7 @@ gulp.task('scss', gulp.series('images', 'font'), function() {
     postCssOpts.push(cssnano);
   }
 
-  return gulp.src([folder.src + 'assets/scss/origin/main.scss', folder.src + 'assets/scss/my_main.scss.css'])
+  gulp.src([folder.src + 'assets/scss/my_main.scss.css'])
     .pipe(sass({
       outputStyle: 'nested',
       imagePath: 'images/',
@@ -111,18 +111,21 @@ gulp.task('scss', gulp.series('images', 'font'), function() {
     .pipe(concat('main.css'))
     .pipe(gulp.dest(folder.build + 'assets/css/'));
 
-});
+  done();
+};
 
-gulp.task( 'css.min', (done) => {
-    gulp.src(folder.src + 'assets/scss/*.min.css')
-    .pipe( gulp.dest(folder.build + 'assets/css') );
-    done();
+gulp.task('css.min', (done) => {
+  gulp.src(folder.src + 'assets/scss/*.min.css')
+  .pipe( gulp.dest(folder.build + 'assets/css') );
+
+  done();
 } );
 
-gulp.task( 'css.image', (done) => {
-    gulp.src(folder.src + 'assets/scss/origin/images/**')
-    .pipe( gulp.dest(folder.build + 'assets/css/images') );
-    done();
+gulp.task('css.image', (done) => {
+  gulp.src(folder.src + 'assets/scss/origin/images/**')
+  .pipe( gulp.dest(folder.build + 'assets/css/images') );
+
+  done();
 } );
 
 // watch for changes
@@ -139,14 +142,13 @@ gulp.task('watch', function() {
 
   // css changes
   gulp.watch(folder.src + 'assets/scss/**/*', gulp.task('css'));
-  gulp.watch(folder.src + 'assets/scss/images/**/*', gulp.task('css.image'));
 
   // font changes
   gulp.watch(folder.src + 'assets/fonts/**/*', gulp.task('font'));
 });
 
 gulp.task('js', gulp.series('js.concat'));
-gulp.task('css', gulp.series('scss', 'css.min', 'css.image'));
+gulp.task('css', gulp.series(scss_task, 'css.min', 'css.image'));
 gulp.task('html', gulp.series('ejs'));
-gulp.task('run', gulp.series('html', 'css', 'js', 'font'));
-gulp.task('default', gulp.series('watch'));
+gulp.task('run', gulp.parallel('html', 'css', 'js', 'font', 'images'));
+gulp.task('default', gulp.series('run', gulp.series('watch')));

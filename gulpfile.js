@@ -91,15 +91,16 @@ const
 ;
 
 // image processing
-gulp.task('images', function() {
-  return gulp.src(paths.images.src)
-    .pipe(newer(out))
+function ImagesTask(done) {
+  gulp.src(paths.images.src)
+    .pipe(newer(paths.images.dest))
     .pipe(imagemin({ optimizationLevel: 5 }))
     .pipe(gulp.dest(paths.images.dest));
-});
+  done();
+}
 
 //pugをhtmlに変換
-gulp.task('pug', function(done) {
+function pugTask(done) {
   var option = {
     pretty: true
   }
@@ -112,28 +113,10 @@ gulp.task('pug', function(done) {
       // .pipe(rename({extname: ".html"}))
     .pipe(gulp.dest(paths.html.dest))
   done();
-});
-
-// gulp.task('ejs', (done) => {
-//     var json = JSON.parse(fs.readFileSync(paths.html.var));
-
-//     gulp.src([paths.html.src])
-//       .pipe(plumber({
-//         handleError: function (err) {
-//           console.log(err);
-//           this.emit('end');
-//         }
-//       }))
-//       .pipe(ejs(json))
-//       .pipe(rename({extname: ""})) // 拡張子一個目を消す
-//       .pipe(rename({extname: ".html"}))
-//       .pipe(gulp.dest(paths.html.dest));
-//     done();
-// });
+}
 
 // JavaScript processing
-gulp.task('js.concat', function() {
-
+function jsConcatTask() {
   var jsbuild = gulp.src(paths.scripts.src)
     .pipe(deporder())
     .pipe(concat('main.js'));
@@ -145,14 +128,14 @@ gulp.task('js.concat', function() {
   }
 
   return jsbuild.pipe(gulp.dest(paths.scripts.dest));
-});
+}
 
-gulp.task('font', (done) => {
+function fontsTask(done) {
     gulp.src(paths.fonts.src)
     .pipe( gulp.dest(paths.fonts.dest) );
 
     done();
-} );
+}
 
 // Sassコンパイル(非圧縮)
 function stylesTask(done) {
@@ -227,11 +210,9 @@ function watchFiles(done) {
     browserSync.reload();
     done();
   };
-  // HACK: 理想形
-  // gulp.watch(paths.styles.src).on('change', gulp.series(styles, browserReload));
 
   // image changes
-  gulp.watch(paths.images.src).on('change', gulp.series(gulp.task('images'), browserReload));
+  gulp.watch(paths.images.src).on('change', gulp.series(ImagesTask, browserReload));
 
   // html changes
   gulp.watch(paths.html.src).on('change', gulp.series(gulp.task('html'), browserReload));
@@ -243,10 +224,10 @@ function watchFiles(done) {
   gulp.watch(paths.styles.src).on('change', gulp.series(stylesTask, browserReload));
 
   // font changes
-  gulp.watch(paths.fonts.src).on('change', gulp.series(gulp.task('font'), browserReload));
+  gulp.watch(paths.fonts.src).on('change', gulp.series(fontsTask, browserReload));
 }
 
-gulp.task('js', gulp.series('js.concat'));
-gulp.task('html', gulp.series('pug'));
-gulp.task('build', gulp.series(gulp.parallel('js', 'images', sassCompressTask, 'html', 'font'), cleanMapFiles));
-gulp.task('default', gulp.series(gulp.parallel('js', stylesTask, 'html', 'font'), gulp.series(browsersyncTask, watchFiles)));
+gulp.task('js', gulp.series(jsConcatTask));
+gulp.task('html', gulp.series(pugTask));
+gulp.task('build', gulp.series(gulp.parallel('js', ImagesTask, sassCompressTask, 'html', fontsTask), cleanMapFiles));
+gulp.task('default', gulp.series(gulp.parallel('js', ImagesTask, stylesTask, 'html', fontsTask), gulp.series(browsersyncTask, watchFiles)));

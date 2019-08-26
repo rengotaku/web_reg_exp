@@ -12,6 +12,7 @@ const
 
   browserSync = require('browser-sync').create(),
   concat = require('gulp-concat'),
+  babel = require('gulp-babel'),
   deporder = require('gulp-deporder'),
   stripdebug = require('gulp-strip-debug'),
   uglify = require('gulp-uglify'),
@@ -63,6 +64,7 @@ const
     },
     scripts: {
       src: './src/assets/js/**/*.js',
+      src_es6: './src/assets/js/**/*.es6',
       dest: './dest/assets/js',
       map: './dest/assets/js/maps',
     },
@@ -116,7 +118,16 @@ function pugTask(done) {
 }
 
 // JavaScript processing
-function jsConcatTask() {
+function babelTask() {
+  return gulp.src(paths.scripts.src_es6)
+    .pipe(babel({
+      presets: ["@babel/preset-env"]
+    }))
+  .pipe(gulp.dest(paths.scripts.dest));
+}
+
+// JavaScript processing
+function scriptsTask() {
   var jsbuild = gulp.src(paths.scripts.src)
     .pipe(deporder())
     .pipe(concat('main.js'));
@@ -131,10 +142,10 @@ function jsConcatTask() {
 }
 
 function fontsTask(done) {
-    gulp.src(paths.fonts.src)
-    .pipe( gulp.dest(paths.fonts.dest) );
+  gulp.src(paths.fonts.src)
+  .pipe( gulp.dest(paths.fonts.dest) );
 
-    done();
+  done();
 }
 
 // Sassコンパイル(非圧縮)
@@ -227,7 +238,7 @@ function watchFiles(done) {
   gulp.watch(paths.fonts.src).on('change', gulp.series(fontsTask, browserReload));
 }
 
-gulp.task('js', gulp.series(jsConcatTask));
+gulp.task('js', gulp.series(babelTask, scriptsTask));
 gulp.task('html', gulp.series(pugTask));
 gulp.task('build', gulp.series(gulp.parallel('js', ImagesTask, sassCompressTask, 'html', fontsTask), cleanMapFiles));
 gulp.task('default', gulp.series(gulp.parallel('js', ImagesTask, stylesTask, 'html', fontsTask), gulp.series(browsersyncTask, watchFiles)));

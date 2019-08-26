@@ -57,13 +57,14 @@ const
       dest: './dest/assets/css',
       map: './dest/css/maps',
     },
+    fonts: {
+      src: './src/assets/fonts/**',
+      dest: './dest/assets/fonts',
+    },
     scripts: {
-      src: './src/js/**/*.js',
-      jsx: './src/js/**/*.jsx',
-      dest: './dest/js',
-      map: './dest/js/maps',
-      core: 'src/js/core/**/*.js',
-      app: 'src/js/app/**/*.js',
+      src: './src/assets/js/**/*.js',
+      dest: './dest/assets/js',
+      map: './dest/assets/js/maps',
     },
     images: {
       src: './src/img/**/*.{jpg,jpeg,png,svg,gif}',
@@ -91,11 +92,10 @@ const
 
 // image processing
 gulp.task('images', function() {
-  var out = folder.build + 'images/';
-  return gulp.src(folder.src + 'images/**/*')
+  return gulp.src(paths.images.src)
     .pipe(newer(out))
     .pipe(imagemin({ optimizationLevel: 5 }))
-    .pipe(gulp.dest(out));
+    .pipe(gulp.dest(paths.images.dest));
 });
 
 //pugをhtmlに変換
@@ -134,7 +134,7 @@ gulp.task('pug', function(done) {
 // JavaScript processing
 gulp.task('js.concat', function() {
 
-  var jsbuild = gulp.src([folder.src + 'assets/js/**/*'])
+  var jsbuild = gulp.src(paths.scripts.src)
     .pipe(deporder())
     .pipe(concat('main.js'));
 
@@ -144,15 +144,12 @@ gulp.task('js.concat', function() {
       .pipe(uglify());
   }
 
-  return jsbuild.pipe(gulp.dest(folder.build + 'assets/js/'));
+  return jsbuild.pipe(gulp.dest(paths.scripts.dest));
 });
 
-gulp.task( 'font', (done) => {
-    gulp.src(
-        [ folder.src + 'assets/fonts/**' ],
-        { base: folder.src }
-    )
-    .pipe( gulp.dest(folder.build) );
+gulp.task('font', (done) => {
+    gulp.src(paths.fonts.src)
+    .pipe( gulp.dest(paths.fonts.dest) );
 
     done();
 } );
@@ -234,22 +231,22 @@ function watchFiles(done) {
   // gulp.watch(paths.styles.src).on('change', gulp.series(styles, browserReload));
 
   // image changes
-  gulp.watch(folder.src + 'images/**/*').on('change', gulp.series(gulp.task('images'), browserReload));
+  gulp.watch(paths.images.src).on('change', gulp.series(gulp.task('images'), browserReload));
 
   // html changes
-  gulp.watch(folder.src + 'views/**/*').on('change', gulp.series(gulp.task('html'), browserReload));
+  gulp.watch(paths.html.src).on('change', gulp.series(gulp.task('html'), browserReload));
 
   // javascript changes
-  gulp.watch(folder.src + 'assets/js/**/*').on('change', gulp.series(gulp.task('js'), browserReload));
+  gulp.watch(paths.scripts.src).on('change', gulp.series(gulp.task('js'), browserReload));
 
   // css changes
-  gulp.watch(folder.src + 'assets/sass/**/*').on('change', gulp.series(stylesTask, browserReload));
+  gulp.watch(paths.styles.src).on('change', gulp.series(stylesTask, browserReload));
 
   // font changes
-  gulp.watch(folder.src + 'assets/fonts/**/*').on('change', gulp.series(gulp.task('font'), browserReload));
+  gulp.watch(paths.fonts.src).on('change', gulp.series(gulp.task('font'), browserReload));
 }
 
 gulp.task('js', gulp.series('js.concat'));
 gulp.task('html', gulp.series('pug'));
 gulp.task('build', gulp.series(gulp.parallel('js', 'images', sassCompressTask, 'html', 'font'), cleanMapFiles));
-gulp.task('default', gulp.series(gulp.parallel('js', stylesTask, 'html'), gulp.series(browsersyncTask, watchFiles)));
+gulp.task('default', gulp.series(gulp.parallel('js', stylesTask, 'html', 'font'), gulp.series(browsersyncTask, watchFiles)));

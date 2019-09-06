@@ -65,6 +65,8 @@ const
     scripts: {
       src: './src/assets/js/**/*.js',
       src_es6: './src/assets/js/**/*.es6',
+      tmp_dest_es6: './tmp/assets/js',
+      tmp_es6: './tmp/assets/js/**/*.js',
       dest: './dest/assets/js',
       map: './dest/assets/js/maps',
     },
@@ -123,12 +125,12 @@ function babelTask() {
     .pipe(babel({
       presets: ["@babel/preset-env"]
     }))
-  .pipe(gulp.dest(paths.scripts.dest));
+  .pipe(gulp.dest(paths.scripts.tmp_dest_es6));
 }
 
 // JavaScript processing
 function scriptsTask() {
-  var jsbuild = gulp.src(paths.scripts.src)
+  var jsbuild = gulp.src([paths.scripts.src, paths.scripts.tmp_es6])
     .pipe(deporder())
     .pipe(concat('main.js'));
 
@@ -229,7 +231,7 @@ function watchFiles(done) {
   gulp.watch(paths.html.src).on('change', gulp.series(gulp.task('html'), browserReload));
 
   // javascript changes
-  gulp.watch(paths.scripts.src).on('change', gulp.series(gulp.task('js'), browserReload));
+  gulp.watch([paths.scripts.src, paths.scripts.src_es6]).on('change', gulp.series(gulp.task('js'), browserReload));
 
   // css changes
   gulp.watch(paths.styles.src).on('change', gulp.series(stylesTask, browserReload));

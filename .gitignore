@@ -62,3 +62,4 @@ typings/
 
 # own
 .DS_Store
+tmp/

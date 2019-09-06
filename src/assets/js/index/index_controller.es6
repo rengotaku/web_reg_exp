@@ -4,6 +4,7 @@ class IndexController {
   init() {
     this.initRegExpInput();
     this.initResetButton();
+    this.initOptionButtons();
   }
 
   initRegExpInput() {
@@ -19,11 +20,13 @@ class IndexController {
       }
 
       const replaceTxt = $('#replace').val();
-      if(replaceTxt.length == 0) {
-        return;
-      }
+      // HACK: 除去したい時もあるので不要？
+      // if(replaceTxt.length == 0) {
+      //   return;
+      // }
 
-      const regExp = new RegExp(regExpTxt, 'g');
+      const regExp = new RegExp(regExpTxt, $('#reg-exp-option').val());
+      // const regExp = new RegExp(regExpTxt, 'g');
       const replacedTxt = planeTxt.replace(regExp, replaceTxt);
       $('#txt-after').val(replacedTxt);
 
@@ -32,11 +35,21 @@ class IndexController {
       }
     }
 
+    $('#txt-before').on('input', function(event) {
+      executeReplace();
+    });
     $('#reg-exp').on('input', function(event) {
       executeReplace();
     });
     $('#replace').on('input', function(event) {
       executeReplace();
+    });
+  }
+
+  initOptionButtons() {
+    $('#btn-blank-delete').on('click', function(event) {
+      $('#reg-exp').val("^$\\n");
+      $('#replace').val('');
     });
   }
 

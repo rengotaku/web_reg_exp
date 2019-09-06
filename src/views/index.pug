@@ -29,15 +29,27 @@ head
         .col-md-12
           .form-group.row
             label.col-sm-2.col-form-label(for='optradio') 正規表現
-            .col-sm-10
+            //- FIXME: 一行で表示したい。
+            .col-sm-10 /
               input#reg-exp.form-control(type='text' name='reg-exp' placeholder="正規表現を入力")
+              | /
           .form-group.row
             label.col-sm-2.col-form-label(for='optradio') リプレイス
             .col-sm-10
               input#replace.form-control(type='text' name='replace' placeholder="リプレイスを入力")
           .form-group.row
+            label.col-sm-2.col-form-label(for='optradio') オプション
+            .col-sm-10
+              select#reg-exp-option.form-control(name='reg-exp-option')
+                option(value='g') (g)グローバルサーチ
+                option(value='i') (i)大文字・小文字を区別しない検索
+                option(value='m' selected='') (m)複数行検索
+                option(value='s') (s). を改行文字と一致するようにします。
+                option(value='u') (u)"unicode"; パターンをユニコードのコードポイントの連続として扱う
+                option(value='y') (y)対象文字列で最後に見つかったマッチの位置から検索を開始する先頭固定検索を行います
+          .form-group.row
             section(style='padding-left: 15px;')
-              label.col-form-label(data-toggle='collapse' data-target='#options') 簡単操作
+              label.col-form-label(data-toggle='collapse' data-target='#options') 簡単操作 ↓
               #options.collapse
                 .panel.panel-default
                   .panel-body
@@ -45,6 +57,7 @@ head
                       button#btn-blank-delete.btn.btn-primary(href='#') 空白行を削除
           .form-group.row
             section.pl-1(style='padding-left: 15px;')
+              //- FIXME: 横に空白を表示したい
               button#btn-reset.btn.btn-danger(type='button') リセットする
 div
   #app(name='app')

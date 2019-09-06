@@ -547,6 +547,7 @@ function () {
     value: function init() {
       this.initRegExpInput();
       this.initResetButton();
+      this.initOptionButtons();
     }
   }, {
     key: "initRegExpInput",
@@ -564,13 +565,13 @@ function () {
           return;
         }
 
-        var replaceTxt = $('#replace').val();
+        var replaceTxt = $('#replace').val(); // HACK: 除去したい時もあるので不要？
+        // if(replaceTxt.length == 0) {
+        //   return;
+        // }
 
-        if (replaceTxt.length == 0) {
-          return;
-        }
+        var regExp = new RegExp(regExpTxt, $('#reg-exp-option').val()); // const regExp = new RegExp(regExpTxt, 'g');
 
-        var regExp = new RegExp(regExpTxt, 'g');
         var replacedTxt = planeTxt.replace(regExp, replaceTxt);
         $('#txt-after').val(replacedTxt);
 
@@ -579,11 +580,22 @@ function () {
         }
       }
 
+      $('#txt-before').on('input', function (event) {
+        executeReplace();
+      });
       $('#reg-exp').on('input', function (event) {
         executeReplace();
       });
       $('#replace').on('input', function (event) {
         executeReplace();
+      });
+    }
+  }, {
+    key: "initOptionButtons",
+    value: function initOptionButtons() {
+      $('#btn-blank-delete').on('click', function (event) {
+        $('#reg-exp').val("^$\\n");
+        $('#replace').val('');
       });
     }
   }, {

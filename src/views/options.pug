@@ -1,0 +1,76 @@
+- var meta = locals.option
+doctype html
+head
+  title #{meta.title}
+  meta(name='description' content=meta.description)
+  meta(name='keywords' content=meta.keywords)
+
+  include layout/common_head.pug
+
+  include layout/signature.pug
+
+  // <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,700,800" rel="stylesheet">
+  link(href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet')
+  // FOR IE9 below
+  //if lt IE 9
+    script(src='js/respond.min.js')
+.fh5co-loader
+#page
+  // Header
+  include layout/header.pug
+
+  #fh5co-about
+    .container
+      .row.animate-box
+        .col-md-8.col-md-offset-2.text-center.fh5co-heading
+          h2 正規表現オプションの詳細
+  #fh5co-features
+    .container
+      .services-padding
+        .row
+          .col.animate-box
+            .feature-left
+              span.icon
+                i.icon-search
+              .feature-copy
+                h3 オプション
+
+                table.table
+                  thead
+                    tr
+                      th 
+                      th 意味
+                  tbody
+                    tr
+                      th(scope='row') g
+                      td グローバルサーチ
+                    tr
+                      th(scope='row') i
+                      td 大文字・小文字を区別しない検索
+                    tr
+                      th(scope='row') m
+                      td 複数行検索
+                    tr
+                      th(scope='row') s
+                      td . を改行文字と一致するようにします。
+                    tr
+                      th(scope='row') u
+                      td "unicode"; パターンをユニコードのコードポイントの連続として扱う
+                    tr
+                      th(scope='row') y
+                      td 対象文字列で最後に見つかったマッチの位置から検索を開始する先頭固定検索を行います
+
+
+div
+  // Footer
+  include layout/footer.pug
+.gototop.js-top
+  a.js-gotop(href='#')
+    i.icon-arrow-up22
+  // Scripts
+  include layout/script.pug
+script.
+  document.addEventListener('DOMContentLoaded', function() {
+  (function() {
+  });
+  });

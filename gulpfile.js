@@ -51,7 +51,7 @@ const
     html: {
       src: './src/views/*.pug',
       dest: './dest',
-      var: './src/views/var.json',
+      var: './config/pug_data.json',
     },
     styles: {
       src: './src/assets/sass/my_main.scss',
@@ -106,7 +106,8 @@ function ImagesTask(done) {
 //pugをhtmlに変換
 function pugTask(done) {
   var option = {
-    pretty: true
+    pretty: true,
+    data: require(paths.html.var)
   }
   gulp.src(paths.html.src)
     .pipe(plumber({

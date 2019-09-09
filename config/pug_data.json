@@ -1,0 +1,22 @@
+{
+    "common": {
+        "url": "localhost:8080",
+        "title": "JavaScript regExp",
+        "title_short": "RegExp"
+    },
+    "index": {
+        "title":"トップページ - JavaScript regExp",
+        "description":"正規表現をWEBで手軽に行える便利ツール。",
+        "keywords":"javascript,regexp,web,便利ツール,トップ"
+    },
+    "about": {
+        "title":"このサイトについて - JavaScript regExp",
+        "description":"アバウトページです。",
+        "keywords":"javascript,regexp,web,便利ツール,アバウト"
+    },
+    "option": {
+        "title":"正規表現のオプション - JavaScript regExp",
+        "description":"指定できる正規表現のオプションの説明します。",
+        "keywords":"javascript,regexp,web,便利ツール,オプション"
+    }
+}

@@ -1,6 +1,10 @@
+- var meta = locals.index
 doctype html
 head
-  title DIFF
+  title #{meta.title}
+  meta(name='description' content=meta.description)
+  meta(name='keywords' content=meta.keywords)
+
   include layout/common_head.pug
 
   include layout/signature.pug
@@ -30,23 +34,26 @@ head
           .form-group.row
             label.col-sm-2.col-form-label(for='optradio') 正規表現
             //- FIXME: 一行で表示したい。
-            .col-sm-10 /
-              input#reg-exp.form-control(type='text' name='reg-exp' placeholder="正規表現を入力")
-              | /
+            .col-sm-8
+              .input-group
+                span.input-group-addon /
+                input#reg-exp.form-control(type='text' name='reg-exp' placeholder="正規表現を入力")
+                span.input-group-addon /
+            .col-sm-2
+              select#reg-exp-option.form-control(name='reg-exp-option')
+                option(value='g') g
+                option(value='i') i
+                option(value='m' selected='') m
+                option(value='s') s
+                option(value='u') u
+                option(value='y') y
+              small
+                a(href='./options.html') オプション詳細
+
           .form-group.row
             label.col-sm-2.col-form-label(for='optradio') リプレイス
             .col-sm-10
               input#replace.form-control(type='text' name='replace' placeholder="リプレイスを入力")
-          .form-group.row
-            label.col-sm-2.col-form-label(for='optradio') オプション
-            .col-sm-10
-              select#reg-exp-option.form-control(name='reg-exp-option')
-                option(value='g') (g)グローバルサーチ
-                option(value='i') (i)大文字・小文字を区別しない検索
-                option(value='m' selected='') (m)複数行検索
-                option(value='s') (s). を改行文字と一致するようにします。
-                option(value='u') (u)"unicode"; パターンをユニコードのコードポイントの連続として扱う
-                option(value='y') (y)対象文字列で最後に見つかったマッチの位置から検索を開始する先頭固定検索を行います
           .form-group.row
             section(style='padding-left: 15px;')
               label.col-form-label(data-toggle='collapse' data-target='#options') 簡単操作 ↓

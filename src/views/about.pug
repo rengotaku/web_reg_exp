@@ -1,6 +1,10 @@
+- var meta = locals.about
 doctype html
 head
-  title DIFF
+  title #{meta.title}
+  meta(name='description' content=meta.description)
+  meta(name='keywords' content=meta.keywords)
+
   include layout/common_head.pug
 
   include layout/signature.pug
@@ -19,7 +23,7 @@ head
     .container
       .row.animate-box
         .col-md-8.col-md-offset-2.text-center.fh5co-heading
-          h2 BEAUTY DIFF
+          h2 #{locals.common.title}
           p &#x5FEB;&#x9069;&#x306A;&#x6BD4;&#x8F03;&#x3092;&#x3042;&#x306A;&#x305F;&#x306B;&#xFF01;
   #fh5co-features
     .container

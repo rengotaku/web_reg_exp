@@ -16290,25 +16290,20 @@ $baseBgColor: linear-gradient(-135deg, #E4A972, #9941D8);
 $baseBorderColor: #efefef;
 */
 /* Main */
+.panel-body {
+  margin-right: 1em;
+}
+
+.panel-body .label {
+  margin-left: 0.5em;
+}
+
+.panel-body button {
+  margin-left: 0.5em;
+}
+
 #fh5co-contact {
   padding: 1em 0;
-}
-
-/* diffの微調整 */
-#app .d2h-wrapper .d2h-file-wrapper .d2h-files-diff .d2h-file-side-diff {
-  margin-right: -10px;
-}
-
-#app .d2h-diff-tbody .d2h-code-line-prefix.plus:before {
-  content: "+";
-}
-
-#app .d2h-diff-tbody .d2h-code-line-prefix.minus:before {
-  content: "-";
-}
-
-#app .d2h-diff-tbody .d2h-code-line-prefix.space:before {
-  content: " ";
 }
 
 /* minimap */

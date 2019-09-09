@@ -23,27 +23,20 @@ $baseBorderColor: #efefef;
 */
 /* Main */
 
-#fh5co-contact {
-  padding: 1em 0;
+.panel-body {
+  margin-right: 1em;
+
+  .label {
+    margin-left: 0.5em;
+  }
+
+  button {
+    margin-left: 0.5em;
+  }
 }
 
-/* diffの微調整 */
-#app {
-  .d2h-wrapper .d2h-file-wrapper .d2h-files-diff .d2h-file-side-diff {
-    margin-right: -10px;
-  }
-
-  .d2h-diff-tbody {
-    .d2h-code-line-prefix.plus:before {
-      content: "+";
-    }
-    .d2h-code-line-prefix.minus:before {
-      content: "-";
-    }
-    .d2h-code-line-prefix.space:before {
-      content: " ";
-    }
-  }
+#fh5co-contact {
+  padding: 1em 0;
 }
 
 /* minimap */

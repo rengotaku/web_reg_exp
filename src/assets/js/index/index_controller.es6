@@ -2,6 +2,7 @@ class IndexController {
   constructor() {
   }
   init() {
+    this.initSymbolList();
     this.initRegExpInput();
     this.initResetButton();
     this.initOptionButtons();
@@ -43,6 +44,15 @@ class IndexController {
     });
     $('#replace').on('input', function(event) {
       executeReplace();
+    });
+  }
+
+  initSymbolList() {
+    $('#symbol-list .label').each(function(index, element){
+      $(element).on('click', function(event) {
+        const symbol = $(element).text();
+        $('#reg-exp').val($('#reg-exp').val() + symbol);
+      });
     });
   }
 

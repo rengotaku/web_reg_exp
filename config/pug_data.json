@@ -1,8 +1,10 @@
 {
     "common": {
-        "url": "localhost:8080",
+        "url": "http://localhost:8080",
         "title": "JavaScript regExp",
-        "title_short": "RegExp"
+        "title_short": "RegExp",
+        "github": "https://github.com/kanagawa41",
+        "author": "Ryuji"
     },
     "index": {
         "title":"トップページ - JavaScript regExp",

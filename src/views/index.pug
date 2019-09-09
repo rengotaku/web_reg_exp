@@ -23,17 +23,11 @@ head
     .container
       .row
         .col-md-12
-          .row
-            .col-md-6
-              .form-group
-                textarea#txt-before.form-control(rows='10' name='txt1' placeholder='置換文字')
-            .col-md-6
-              .form-group
-                textarea#txt-after.form-control(rows='10' name='txt2' placeholder='リプレイス後')
+          .form-group
+            textarea#txt-before.form-control(rows='10' name='txt1' placeholder='置換文字')
         .col-md-12
           .form-group.row
             label.col-sm-2.col-form-label(for='optradio') 正規表現
-            //- FIXME: 一行で表示したい。
             .col-sm-8
               .input-group
                 span.input-group-addon /
@@ -56,6 +50,22 @@ head
               input#replace.form-control(type='text' name='replace' placeholder="リプレイスを入力")
           .form-group.row
             section(style='padding-left: 15px;')
+              label.col-form-label 簡単入力
+              .panel.panel-default
+                #symbol-list.panel-body
+                  .form-group.row
+                    span.label.label-primary ^
+                    span.label.label-primary $
+                    span.label.label-primary \
+                    span.label.label-primary /
+                    span.label.label-primary -
+                    span.label.label-primary (
+                    span.label.label-primary )
+                    span.label.label-primary [
+                    span.label.label-primary ]
+
+          .form-group.row
+            section(style='padding-left: 15px;')
               label.col-form-label(data-toggle='collapse' data-target='#options') 簡単操作 ↓
               #options.collapse
                 .panel.panel-default
@@ -66,6 +76,9 @@ head
             section.pl-1(style='padding-left: 15px;')
               //- FIXME: 横に空白を表示したい
               button#btn-reset.btn.btn-danger(type='button') リセットする
+        .col-md-12
+          .form-group
+            textarea#txt-after.form-control(rows='10' name='txt2' placeholder='リプレイス後')
 div
   #app(name='app')
 // Footer

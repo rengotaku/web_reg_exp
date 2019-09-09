@@ -545,6 +545,7 @@ function () {
   _createClass(IndexController, [{
     key: "init",
     value: function init() {
+      this.initSymbolList();
       this.initRegExpInput();
       this.initResetButton();
       this.initOptionButtons();
@@ -588,6 +589,16 @@ function () {
       });
       $('#replace').on('input', function (event) {
         executeReplace();
+      });
+    }
+  }, {
+    key: "initSymbolList",
+    value: function initSymbolList() {
+      $('#symbol-list .label').each(function (index, element) {
+        $(element).on('click', function (event) {
+          var symbol = $(element).text();
+          $('#reg-exp').val($('#reg-exp').val() + symbol);
+        });
       });
     }
   }, {
